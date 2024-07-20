@@ -37,7 +37,7 @@ public class Principal {
                         System.out.println("Hasta luego joven jedi. ¡Que la fuerza te acompañe!");
                         return;
                         default:
-                        System.out.println("Opción invalida. Por favor ingrese un número válido.");
+                        System.out.println("Opción inválida. Por favor ingrese un número válido.");
                 }
             }
         }

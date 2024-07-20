@@ -68,7 +68,7 @@ public class Explorador {
     }
 
     public void consultarPlaneta(){
-        System.out.println("Ingresa el ID del planeta que deseas decubrir: ");
+        System.out.println("Ingresa el ID del planeta que deseas descubrir: ");
         int idPlaneta = lectura.nextInt();
         Planeta planeta = consultaPlaneta.buscaPlaneta(idPlaneta);
         System.out.println(planeta);

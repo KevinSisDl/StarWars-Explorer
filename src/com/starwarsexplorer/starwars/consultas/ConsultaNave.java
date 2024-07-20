@@ -9,6 +9,12 @@ import com.google.gson.Gson;
 import com.starwarsexplorer.starwars.records.Nave;
 
 public class ConsultaNave {
+    private final Gson gson;
+
+    public ConsultaNave() {
+        this.gson = new Gson();
+    }
+
         public Nave buscaNave(int idNave){
         URI direccion = URI.create("https://swapi.dev/api/starships/" + idNave + "/");
         
@@ -20,9 +26,19 @@ public class ConsultaNave {
            try {
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            return new Gson().fromJson(response.body(), Nave.class);
-        } catch (Exception e) {
-            throw new RuntimeException("No se encontró la información de la nave espacial!");
+                    if (response.statusCode() == 200) {
+                        String responseBody = response.body();
+                        return gson.fromJson(responseBody, Nave.class);
+                    } else if (response.statusCode() == 404) {
+                        System.out.println("Nave no encontrada. Es posible que esté en una misión secreta!");
+                        return null;
+                    } else {
+                        System.out.println("La información de esta nave ha sido borrada. Parece que se perdió en la derrota de la Estrella de la Muerte");
+                        return null;
+                    }
+                } catch (Exception e) {
+                    System.err.println("¡Se ha producido un error! Los tecnicos astromecánicos están trabajando para resolverlo");
+                    return null;
+                }
         }
-    }
 }
